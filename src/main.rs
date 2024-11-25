@@ -4,7 +4,6 @@ mod bot;
 mod bot_runner;
 mod cratesio;
 mod eval;
-mod rustdoc;
 mod shutdown;
 #[cfg(unix)]
 mod signal;
@@ -16,7 +15,6 @@ use crate::bot::{Bot, Error};
 use crate::bot_runner::BotRunner;
 use crate::cratesio::CratesioBot;
 use crate::eval::EvalBot;
-use crate::rustdoc::RustdocBot;
 use crate::shutdown::Shutdown;
 use futures::channel::oneshot::Receiver;
 use futures::future::{self, TryFutureExt as _};
@@ -55,7 +53,6 @@ fn main() {
     #[cfg(unix)]
     signal::init(shutdown.clone());
     upgrade::init(shutdown.clone());
-    rustdoc::init();
 
     info!("Running as `{}`", env!("USER_AGENT"));
 
@@ -87,14 +84,6 @@ fn main() {
         CratesioBot::handle_update,
     );
 
-    // Kick off rustdoc bot.
-    let rustdoc_receiver = bot_runner.run(
-        "rustdoc",
-        "RUSTDOC_TELEGRAM_TOKEN",
-        RustdocBot::new,
-        RustdocBot::handle_update,
-    );
-
     async fn bind_name(
         receiver: Receiver<Result<Option<Bot>, ()>>,
         name: &'static str,
@@ -107,7 +96,6 @@ fn main() {
         let bots = future::try_join_all(vec![
             bind_name(eval_receiver, "eval"),
             bind_name(cratesio_receiver, "cratesio"),
-            bind_name(rustdoc_receiver, "rustdoc"),
         ])
         .await
         .unwrap();
