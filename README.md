@@ -7,8 +7,6 @@ This bot program handles Eval bot and Crates.io bot.
 This is a Telegram bot for simple query of Rust-related stuff,
 inspired by [Playbot NG](https://github.com/panicbit/playbot_ng) on IRC.
 
-The official instance of this bot is [@rustevalbot](https://t.me/rustevalbot).
-
 ### Usage
 
 Interaction with eval bot is done either
@@ -54,8 +52,6 @@ All command also support `--help` flag to display help information.
 This is a Telegram bot running under inline mode
 for helping people find and send details of crates on crates.io.
 
-The official instance of this bot is [@cratesiobot](https://t.me/cratesiobot).
-
 It can be used everywhere with a message in format `@cratesiobot <crate>`.
 Telegram would should a menu for user to select crate from.
 
@@ -63,8 +59,6 @@ Telegram would should a menu for user to select crate from.
 
 This is a Telegram bot running under inline mode
 for helping people find and send details of items in Rust official document.
-
-The official instance of this bot is [@rustdocbot](https://t.me/rustdocbot).
 
 It can be used everywhere with a message in format `@rustdocbot <crate>`.
 Telegram would should a menu for user to select item from.
