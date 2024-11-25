@@ -45,3 +45,7 @@ signal-hook = "0.3.7"
 
 [dev-dependencies]
 string_cache = "0.8.0"
+
+[[bin]]
+name = "rustevalbot"
+path = "src/main.rs"
