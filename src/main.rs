@@ -19,22 +19,22 @@ use futures::channel::oneshot::Receiver;
 use futures::future::{self, TryFutureExt as _};
 use itertools::Itertools;
 use log::{error, info};
-use once_cell::sync::Lazy;
 use reqwest::Client;
 use std::env;
 use std::fmt::Write as FmtWrite;
 use std::future::Future;
 use std::io::Write as IOWrite;
+use std::sync::LazyLock;
 use telegram_types::bot::types::{ChatId, UserId};
 use tokio::runtime::Runtime;
 
-static ADMIN_ID: Lazy<UserId> = Lazy::new(|| {
+static ADMIN_ID: LazyLock<UserId> = LazyLock::new(|| {
     env::var("BOT_ADMIN_ID")
         .ok()
         .and_then(|s| str::parse(&s).map(UserId).ok())
         .expect("BOT_ADMIN_ID must be a valid user id")
 });
-static ABOUT_MESSAGE: Lazy<String> = Lazy::new(|| {
+static ABOUT_MESSAGE: LazyLock<String> = LazyLock::new(|| {
     format!(
         "{} {}\n{}",
         env!("CARGO_PKG_NAME"),

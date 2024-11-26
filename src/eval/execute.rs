@@ -4,11 +4,11 @@ use crate::utils;
 use futures::{future, FutureExt as _};
 use htmlescape::{encode_attribute, encode_minimal};
 use log::{debug, warn};
-use once_cell::sync::Lazy;
 use regex::{Captures, Regex};
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use std::future::Future;
+use std::sync::LazyLock;
 
 pub fn execute<'p>(
     client: &'p Client,
@@ -119,8 +119,8 @@ fn generate_code_to_send(code: &str, bare: bool) -> String {
 
 /// Check whether the code includes `#![feature(...)]`
 fn has_feature_attr(code: &str) -> bool {
-    static RE_FEATURE: Lazy<Regex> =
-        Lazy::new(|| Regex::new(r"#\s*!\s*\[\s*feature\s*\(").unwrap());
+    static RE_FEATURE: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"#\s*!\s*\[\s*feature\s*\(").unwrap());
     RE_FEATURE.find(code).is_some()
 }
 
@@ -140,9 +140,11 @@ fn generate_result_from_response(resp: Response, channel: Channel, is_private: b
         return format!("<pre>{}</pre>", encode_minimal(&output));
     }
 
-    static RE_ERROR: Lazy<Regex> = Lazy::new(|| Regex::new(r"^error\[(E\d{4})\]:").unwrap());
-    static RE_CODE: Lazy<Regex> = Lazy::new(|| Regex::new(r"`(.+?)`").unwrap());
-    static RE_ISSUE: Lazy<Regex> = Lazy::new(|| Regex::new(r"\(see issue #(\d+)\)").unwrap());
+    static RE_ERROR: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"^error\[(E\d{4})\]:").unwrap());
+    static RE_CODE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"`(.+?)`").unwrap());
+    static RE_ISSUE: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r"\(see issue #(\d+)\)").unwrap());
     let mut return_line: Option<&str> = None;
     for line in resp.stderr.split('\n') {
         let line = line.trim();
