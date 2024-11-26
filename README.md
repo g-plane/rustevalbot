@@ -7,8 +7,6 @@ This bot program handles Eval bot and Crates.io bot.
 This is a Telegram bot for simple query of Rust-related stuff,
 inspired by [Playbot NG](https://github.com/panicbit/playbot_ng) on IRC.
 
-The official instance of this bot is [@rustevalbot](https://t.me/rustevalbot).
-
 ### Usage
 
 Interaction with eval bot is done either
@@ -54,22 +52,8 @@ All command also support `--help` flag to display help information.
 This is a Telegram bot running under inline mode
 for helping people find and send details of crates on crates.io.
 
-The official instance of this bot is [@cratesiobot](https://t.me/cratesiobot).
-
 It can be used everywhere with a message in format `@cratesiobot <crate>`.
 Telegram would should a menu for user to select crate from.
-
-## Rust doc bot
-
-This is a Telegram bot running under inline mode
-for helping people find and send details of items in Rust official document.
-
-The official instance of this bot is [@rustdocbot](https://t.me/rustdocbot).
-
-It can be used everywhere with a message in format `@rustdocbot <crate>`.
-Telegram would should a menu for user to select item from.
-
-This replaces the `/doc` command previously available in the Eval bot.
 
 ## Configuration
 
@@ -79,7 +63,6 @@ and also recognize `.env` file in the working directory.
 Bot tokens can be specified via:
 * `EVAL_TELEGRAM_TOKEN`: the Eval bot
 * `CRATESIO_TELEGRAM_TOKEN`: the Crates.io bot
-* `RUSTDOC_TELEGRAM_TOKEN`: the Rust doc bot
 
 At least one of the tokens must be provided.
 The bot tokens can be created with [@BotFather](https://t.me/BotFather).
@@ -94,9 +77,6 @@ admin would be able to use `/shutdown` command on that bot to stop the program.
 For the User ID, one can get their own User ID
 via [@userinfobot](https://t.me/userinfobot)
 or [@JsonDumpBot](https://t.me/JsonDumpBot).
-
-If the Rust doc bot is enabled,
-a `search-index.js` file from Rust doc must be present.
 
 The Eval bot requires write permission to `record_list.json`
 in the current directory in order to persist command information
