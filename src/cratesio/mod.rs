@@ -130,11 +130,16 @@ impl Crate {
         // The name can only use alphanumeric characters or `-` and `_`, so no escape is needed.
         // See https://doc.rust-lang.org/cargo/reference/manifest.html#the-name-field
         let crate_url = format!("https://crates.io/crates/{name}");
+        let lib_rs_url = format!("https://lib.rs/crates/{name}");
         let doc_url = documentation.unwrap_or_else(|| format!("https://docs.rs/crate/{name}"));
         let mut buttons = vec![
             InlineKeyboardButton {
                 text: "info".to_string(),
                 pressed: InlineKeyboardButtonPressed::Url(crate_url),
+            },
+            InlineKeyboardButton {
+                text: "lib.rs".to_string(),
+                pressed: InlineKeyboardButtonPressed::Url(lib_rs_url),
             },
             InlineKeyboardButton {
                 text: "doc".to_string(),
