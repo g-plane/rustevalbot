@@ -105,9 +105,11 @@ impl Bot {
         &self,
         chat_id: ChatId,
         text: impl Into<Cow<'a, str>>,
+        reply_to: Option<MessageId>,
     ) -> BotRequest<Message> {
         let mut send_message =
             SendMessage::new(ChatTarget::id(chat_id.0), text).parse_mode(ParseMode::HTML);
+        send_message.reply_to_message_id = reply_to;
         send_message.disable_web_page_preview = Some(true);
         self.build_request(&send_message)
     }

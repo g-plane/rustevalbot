@@ -56,7 +56,9 @@ impl EvalBot {
         // Send the placeholder reply.
         let placeholder_future = async {
             let text = "<em>Processing...</em>";
-            let request = self.bot.send_message(chat_id, text);
+            let request = self
+                .bot
+                .send_message(chat_id, text, Some(message.message_id));
             match request.execute().await {
                 Ok(msg) => {
                     let reply_id = msg.message_id;

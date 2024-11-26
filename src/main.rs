@@ -174,7 +174,7 @@ fn report_error_to_admin(bot: &Bot, error: &Error) {
 
 fn send_message_to_admin(bot: &Bot, msg: String) -> impl Future<Output = Result<(), ()>> {
     let chat_id = ChatId(ADMIN_ID.0);
-    bot.send_message(chat_id, msg)
+    bot.send_message(chat_id, msg, None)
         .execute()
         .map_ok(|_| ())
         .map_err(|e| error!("failed to send message to admin: {:?}", e))

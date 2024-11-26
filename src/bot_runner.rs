@@ -149,7 +149,9 @@ fn may_handle_common_command(
     };
     let chat_id = message.chat.id;
     let send_reply = |text: &str| {
-        let future = bot.send_message(chat_id, text).execute();
+        let future = bot
+            .send_message(chat_id, text, Some(message.message_id))
+            .execute();
         spawner.spawn(async move {
             match future.await {
                 Ok(msg) => debug!(
