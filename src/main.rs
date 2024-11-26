@@ -8,7 +8,6 @@ mod shutdown;
 #[cfg(unix)]
 mod signal;
 mod task_tracker;
-mod upgrade;
 mod utils;
 
 use crate::bot::{Bot, Error};
@@ -52,7 +51,6 @@ fn main() {
     let shutdown = Shutdown::create();
     #[cfg(unix)]
     signal::init(shutdown.clone());
-    upgrade::init(shutdown.clone());
 
     info!("Running as `{}`", env!("USER_AGENT"));
 

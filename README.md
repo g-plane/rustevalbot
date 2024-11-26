@@ -82,15 +82,6 @@ The Eval bot requires write permission to `record_list.json`
 in the current directory in order to persist command information
 across reboot for command editing.
 
-### Upgrade
-
-This bot listens on `upgrade` file in the current directory,
-and when the file gets written,
-the bot will quit itself as if a `/shutdown` command is sent.
-
-You need to have this file available,
-otherwise bot would refuse to run.
-
 ## License
 
 Copyright (C) 2018-2020 Xidorn Quan
