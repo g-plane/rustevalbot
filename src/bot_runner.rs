@@ -164,7 +164,7 @@ fn may_handle_common_command(
     };
     match command.trim() {
         "/about" => {
-            send_reply(&crate::ABOUT_MESSAGE);
+            send_reply(crate::ABOUT_MESSAGE);
         }
         "/shutdown" => {
             let is_admin = message
