@@ -46,7 +46,7 @@ pub fn parse_command(command: &str) -> Option<Command<'_>> {
 
 pub fn get_help_message() -> String {
     let mut result = String::new();
-    for info in FLAG_INFO.iter() {
+    for info in FLAG_INFO {
         writeln!(
             result,
             "<code>--{}</code> - {}",
@@ -241,7 +241,7 @@ mod tests {
             ("beta", Channel::Beta),
             ("nightly", Channel::Nightly),
         ];
-        for (name, channel) in CHANNELS.iter() {
+        for (name, channel) in CHANNELS {
             let expected_flags = Flags {
                 channel: Some(*channel),
                 ..Flags::default()
@@ -260,7 +260,7 @@ mod tests {
     #[test]
     fn edition_flags() {
         const EDITIONS: &[&str] = &["2015", "2018"];
-        for edition in EDITIONS.iter() {
+        for edition in EDITIONS {
             let expected_flags = Flags {
                 edition: Some(*edition),
                 ..Flags::default()
@@ -279,7 +279,7 @@ mod tests {
     #[test]
     fn mode_flags() {
         const MODES: &[(&str, Mode)] = &[("debug", Mode::Debug), ("release", Mode::Release)];
-        for (name, mode) in MODES.iter() {
+        for (name, mode) in MODES {
             let expected_flags = Flags {
                 mode: Some(*mode),
                 ..Flags::default()

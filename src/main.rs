@@ -99,7 +99,7 @@ fn main() {
         .unwrap();
         let bots = bots.into_iter().flatten().collect_vec();
         let mut start_msg = concat!("Start version: ", env!("VERSION")).to_string();
-        for (name, bot) in bots.iter() {
+        for (name, bot) in &bots {
             write!(&mut start_msg, "\nbot {} @{}", name, bot.username).unwrap();
         }
         let (_, first_bot) = bots.into_iter().next().expect("no bot configured?");

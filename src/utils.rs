@@ -97,7 +97,7 @@ mod test {
     fn construct_string(parts: &[(&str, usize)]) -> String {
         let len = parts.iter().map(|(s, n)| s.len() * n).sum();
         let mut result = String::with_capacity(len);
-        for &(s, n) in parts.iter() {
+        for &(s, n) in parts {
             for _ in 0..n {
                 result.push_str(s);
             }
@@ -135,7 +135,7 @@ mod test {
                 expected: &[("a\n", 2), ("a...", 1)],
             },
         ];
-        for Testcase { input, expected } in TESTCASES.iter() {
+        for Testcase { input, expected } in TESTCASES {
             assert_eq!(
                 truncate_output(&construct_string(input), MAX_LINES, MAX_TOTAL_COLUMNS),
                 construct_string(expected)
