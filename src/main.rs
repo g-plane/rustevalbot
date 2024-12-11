@@ -34,14 +34,14 @@ static ADMIN_ID: LazyLock<UserId> = LazyLock::new(|| {
         .and_then(|s| str::parse(&s).map(UserId).ok())
         .expect("BOT_ADMIN_ID must be a valid user id")
 });
-static ABOUT_MESSAGE: LazyLock<String> = LazyLock::new(|| {
-    format!(
-        "{} {}\n{}",
-        env!("CARGO_PKG_NAME"),
-        env!("VERSION"),
-        env!("CARGO_PKG_HOMEPAGE")
-    )
-});
+
+const ABOUT_MESSAGE: &str = concat!(
+    env!("CARGO_PKG_NAME"),
+    " ",
+    env!("VERSION"),
+    "\n",
+    env!("CARGO_PKG_HOMEPAGE")
+);
 
 fn main() {
     // We don't care if we fail to load .env file.
@@ -98,7 +98,7 @@ fn main() {
         .await
         .unwrap();
         let bots = bots.into_iter().flatten().collect_vec();
-        let mut start_msg = format!("Start version: {}", env!("VERSION"));
+        let mut start_msg = concat!("Start version: ", env!("VERSION")).to_string();
         for (name, bot) in bots.iter() {
             write!(&mut start_msg, "\nbot {} @{}", name, bot.username).unwrap();
         }
