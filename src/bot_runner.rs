@@ -22,7 +22,7 @@ pub struct BotRunner<'a> {
     pub report_error: fn(&Bot, &Error),
 }
 
-impl<'a> BotRunner<'a> {
+impl BotRunner<'_> {
     pub fn run<Impl, Creator, Handler, HandleResult>(
         &self,
         name: &'static str,
@@ -170,7 +170,7 @@ fn may_handle_common_command(
             let is_admin = message
                 .from
                 .as_ref()
-                .map_or(false, |from| from.id == *crate::ADMIN_ID);
+                .is_some_and(|from| from.id == *crate::ADMIN_ID);
             if !is_admin {
                 return false;
             }
